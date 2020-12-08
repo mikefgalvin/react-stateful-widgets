@@ -2,7 +2,7 @@
 INPUT Instructions
 
 Watch this short video:
-https://tk-assets.lambdaschool.com/a664dfe7-2dde-48d1-8fa2-48066d98e515_input.gif
+c
 
 How many slices of state do you think are necessary to act as "sources of truth" for all
 the things that change in this widget? Give it some thought before continuing reading!
@@ -21,10 +21,10 @@ STEP 2:
   Make the color of the text be crimson if the length of 'inputValue' goes over ten.
 
 STEP 3:
-  Interpolate the value of the input inside this <div />. How can we make it show in ALL CAPS?
+  Interpolate the value of the input inside this <div />. How can we make it show in ALL CAPS?  -- XXX
 
 STEP 4:
-  Set the value of the input -found inside the event object- into state.
+  Set the value of the input -found inside the event object- into state. - XXXX
 
 STEP 5:
   Set the input value in state to be empty string. The reset still won't work, though! See the next step.
@@ -34,34 +34,41 @@ STEP 6:
   We need to add an extra prop to the <input /> element like so: value={inputValue}
 */
 
-import React from 'react'; /* STEP 0 */
+import React, { useState } from 'react'; /* STEP 0 */
 
 export default function Input() {
   /* STEP 1 */
+  const [inputValue, setInputValue] = useState('');
 
   const changeInput = evt => {
     // When the input changes, its whole value can be found inside the event object.
     // Log out the synthetic event object 'evt' and see for yourself.
     const { value } = evt.target;
+    console.log(value);
+    
+     /* STEP 4 */
+    setInputValue (value);
 
-    /* STEP 4 */
+  
   };
-  const reset = () => {
+
+  const reset = (e) => {
     /* STEP 5 */
+    setInputValue ('');
   };
 
   const style = {
     fontSize: '1.5em',
     marginBottom: '0.3em',
-    color: 'royalblue', /* STEP 2 */
+    color: inputValue.length > 10 ? 'crimson' : 'royalblue', /* STEP 2 */
   };
 
   return (
     <div className='widget-input container'>
       <h2>Input</h2>
-      <div id='output' style={style}></div> {/* STEP 3 */}
+      <div id='output' style={style}>{inputValue.toUpperCase()}</div> {/* Step 3 */}
       <div>
-        <input id='input' type='text' onChange={changeInput} /> {/* STEP 6 */}
+        <input id='input' type='text' onChange={changeInput} value={inputValue} /> {/* Step 6 */}
         <button id='resetInput' onClick={reset}>Reset</button>
       </div>
     </div>
